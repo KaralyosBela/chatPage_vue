@@ -1,32 +1,75 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <navigation-bar />
+
+    <v-main class="bg">
+      <v-container>
+        <transition name="slide" mode="out-in">
+          <router-view></router-view>
+        </transition>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
+<script>
+import 'animate.css';
+//import firebase from "./firebase/config.js";
+//import {auth} from "./firebase/config.js";
+import navigationBar from "./components/navBar.vue";
+
+export default {
+  
+  name: "App",
+  components: {
+    navigationBar,
+  },
+
+  data: () => ({
+    loginDetails: {
+      username: "",
+      photo: "",
+    },
+  }),
+  methods: {
+    
+  },
+//   created(){
+//  auth.onAuthStateChanged((user) => {
+//     console.log("On Auth State Changed")
+//       if (!user) {
+//         console.log("User nincs bejelentkezve.");
+//               this.$store.commit('setUserLoggedOut');
+
+//       } else{
+//         console.log("User bejelentkezve-> "+user.email);
+//         this.$store.commit("setUserLoggedIn", {
+//             name: auth.currentUser.displayName,
+//             photoUrl: auth.currentUser.photoURL,
+//             loggedIn: true,
+//           });
+//       }
+//   });
+//   }
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.bg {
+  width: 100%;
+  height: 100%;
+  background-image: url("C:/Users/omnit/weatherapp/src/assets/mountain.jpg");
+  background-size: cover;
 }
 
-#nav {
-  padding: 30px;
+.slide-enter-active,
+.slide-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(-30%);
 }
 </style>
